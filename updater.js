@@ -27,6 +27,7 @@ const auth = TOKEN => {
       token: TOKEN
     })
   } catch (err) {
+    console.log(err)
     throw err
   }
 }
@@ -193,6 +194,7 @@ const getLatestVersion = async (dependencies, base) => (await Promise.all(
   }, [])
 
 module.exports = async function ({ data, body }, done) {
+  console.log(data, repository)
   // eslint-disable-next-line camelcase
   const { repository, pull_request } = body
   const { owner: { login }, name } = repository
@@ -215,7 +217,7 @@ module.exports = async function ({ data, body }, done) {
     } catch (err) {
       done(err)
     }
-
+    console.log('here')
     try {
       console.log(':: package-lock.json')
 
@@ -296,4 +298,6 @@ module.exports = async function ({ data, body }, done) {
       }
     }
   }
+
+  done(null, { result: 'Updater Hook Success!' })
 }
