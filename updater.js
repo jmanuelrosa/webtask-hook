@@ -194,7 +194,6 @@ const getLatestVersion = async (dependencies, base) => (await Promise.all(
   }, [])
 
 module.exports = async function ({ data, body }, done) {
-  console.log(data, body)
   // eslint-disable-next-line camelcase
   const { repository, pull_request } = body
   const { owner: { login }, name } = repository
@@ -207,8 +206,8 @@ module.exports = async function ({ data, body }, done) {
   let devDependencies
 
   if (
-    // body.action === CLOSED &&
-    pull_request.head.ref === generatedBranch()
+    body.action === CLOSED &&
+    pull_request.head.ref !== generatedBranch()
   ) {
     await auth(data.GITHUB_TOKEN)
 
@@ -217,9 +216,9 @@ module.exports = async function ({ data, body }, done) {
     } catch (err) {
       done(err)
     }
-    console.log('here')
+
     try {
-      console.log(':: package-lock.json')
+      // :: package-lock.json
 
       lock = JSON.parse(await getFile(access, 'package-lock.json'))
       lock = lock.dependencies
@@ -234,7 +233,7 @@ module.exports = async function ({ data, body }, done) {
         []
       )
     } catch (err) {
-      console.log(':: yarn.lock')
+      // :: yarn.lock
       lock = lockfile.parse(await getFile(access, 'yarn.lock'))
       lock = lock.object
 
@@ -285,16 +284,16 @@ module.exports = async function ({ data, body }, done) {
       newCommitSha = await createCommit(access, newPackage, latsCommitInBranch)
       await updateBranch(access, newCommitSha)
       try {
-        await updatePR(newCommitSha)
+        await updatePR(access, newCommitSha)
       } catch (e) {
-        await createPR(newCommitSha)
+        await createPR(access, newCommitSha)
       }
     } catch (err) {
       if (err.code === 404) {
-        latsCommitInBranch = await getBranch(true)
-        newCommitSha = await createCommit(newPackage, latsCommitInBranch)
-        await createBranch(newCommitSha)
-        await createPR(newCommitSha)
+        latsCommitInBranch = await getBranch(access, true)
+        newCommitSha = await createCommit(access, newPackage, latsCommitInBranch)
+        await createBranch(access, newCommitSha)
+        await createPR(access, newCommitSha)
       }
     }
   }
