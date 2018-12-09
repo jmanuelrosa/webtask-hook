@@ -31,7 +31,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@octokit/rest": "latest"
+    "@octokit/rest": "latest",
+    "@yarnpkg/lockfile": "latest",
+    "got": "latest"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
