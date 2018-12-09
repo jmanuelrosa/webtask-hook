@@ -205,7 +205,7 @@ module.exports = async function ({ data, body }, done) {
   let devDependencies
 
   if (
-    body.action === CLOSED &&
+    // body.action === CLOSED &&
     pull_request.head.ref === generatedBranch()
   ) {
     await auth(data.GITHUB_TOKEN)
