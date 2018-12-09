@@ -1,0 +1,49 @@
+{
+  "name": "webtask-hook",
+  "version": "0.1.0",
+  "description": "When github hooks meet webtask.io <3",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "webtask",
+    "serverless"
+  ],
+  "author": {
+    "name": "José Manuel Rosa Moncayo",
+    "email": "josemanuel.rosamoncayo@gmail.com"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmanuelrosa/webtasks-hooks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jmanuelrosa/webtasks-hooks/issues"
+  },
+  "engines": {
+    "node": ">= 10.13.0",
+    "npm": ">= 6.4.1",
+    "yarn": ">=1.12.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "debug": "nodemon  --inspect",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@octokit/rest": "latest"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "eslint": "latest",
+    "eslint-config-standard": "latest",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-node": "latest",
+    "eslint-plugin-promise": "latest",
+    "eslint-plugin-standard": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "nodemon": "latest"
+  }
+}
