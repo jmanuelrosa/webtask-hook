@@ -194,7 +194,7 @@ const getLatestVersion = async (dependencies, base) => (await Promise.all(
   }, [])
 
 module.exports = async function ({ data, body }, done) {
-  console.log(data, repository)
+  console.log(data, body)
   // eslint-disable-next-line camelcase
   const { repository, pull_request } = body
   const { owner: { login }, name } = repository
