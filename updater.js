@@ -27,7 +27,6 @@ const auth = TOKEN => {
       token: TOKEN
     })
   } catch (err) {
-    console.log(err)
     throw err
   }
 }
@@ -262,7 +261,7 @@ module.exports = async function ({ data, body }, done) {
     devDependencies = await getLatestVersion(devDependencies, pkg.devDependencies)
 
     if (!Object.keys(dependencies).length && !Object.keys(devDependencies).length) {
-      return false
+      done(null, { result: 'There aren\'t new versions' })
     }
 
     const newPackage = {
